@@ -1,0 +1,11 @@
+{
+  "_comment": "Example configuration file for FK Path Finder",
+  "host": "localhost",
+  "port": 3306,
+  "user": "root",
+  "password": "yourpassword",
+  "database": "sakila",
+  "max_path_length": 6,
+  "max_paths": 1000,
+  "display_limit": 20
+}

@@ -195,27 +195,38 @@ def parse_reference(ref: str, graph: Dict[str, Set[str]]) -> Tuple[str, List[str
     """
     ref = ref.strip()
     
+    # helper for case-insensitive lookup
+    def find_node_ci(target: str) -> Optional[str]:
+        target_lower = target.lower()
+        for node in graph.keys():
+            if node.lower() == target_lower:
+                return node
+        return None
+
     # Try to parse as `table`.`column` format
     backtick_pattern = r'^`([^`]+)`\.`([^`]+)`$'
     match = re.match(backtick_pattern, ref)
     if match:
         col_ref = f"{match.group(1)}.{match.group(2)}"
-        if col_ref in graph:
-            return ('column', [col_ref])
+        found = find_node_ci(col_ref)
+        if found:
+            return ('column', [found])
     
-    # Try to parse as table.column format
-    simple_pattern = r'^(\w+)\.(\w+)$'
-    match = re.match(simple_pattern, ref)
-    if match:
-        col_ref = f"{match.group(1)}.{match.group(2)}"
-        if col_ref in graph:
-            return ('column', [col_ref])
+    # Try to parse as table.column format (split at LAST dot to support dots in table names)
+    if '.' in ref:
+        parts = ref.rsplit('.', 1)
+        table_part = parts[0].strip('`')
+        col_part = parts[1].strip('`')
+        col_ref = f"{table_part}.{col_part}"
+        found = find_node_ci(col_ref)
+        if found:
+            return ('column', [found])
     
     # Try to parse as table name (with or without backticks)
-    table_name = ref.strip('`')
+    table_name = ref.strip('`').lower()
     
-    # Find all columns in this table that are in the graph
-    table_columns = [node for node in graph.keys() if node.startswith(f"{table_name}.")]
+    # Find all columns in this table that are in the graph (case-insensitive)
+    table_columns = [node for node in graph.keys() if node.lower().startswith(f"{table_name}.")]
     
     if table_columns:
         return ('table', table_columns)
