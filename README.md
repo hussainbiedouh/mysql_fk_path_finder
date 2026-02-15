@@ -3,7 +3,7 @@
 [![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Tests](https://img.shields.io/badge/tests-passing-brightgreen.svg)](./tests)
-[![PyPI](https://img.shields.io/badge/pypi-not%20published%20yet-lightgrey.svg)]()
+[![PyPI](https://img.shields.io/pypi/v/fk-path-finder.svg)](https://pypi.org/project/fk-path-finder/)
 [![Code style: ruff](https://img.shields.io/badge/code%20style-ruff-000000.svg)](https://github.com/astral-sh/ruff)
 
 🔍 A powerful Python package to discover all possible paths between two tables or columns in a MySQL database by traversing foreign key relationships bidirectionally.
@@ -86,10 +86,10 @@ fk-finder --from film --to actor
 
 ## 📦 Installation
 
-### From GitHub (Current)
+### From PyPI (Recommended)
 
 ```bash
-pip install git+https://github.com/hussainbiedouh/mysql_fk_path_finder.git
+pip install fk-path-finder
 ```
 
 ### From Source
@@ -107,8 +107,6 @@ git clone https://github.com/hussainbiedouh/mysql_fk_path_finder.git
 cd mysql_fk_path_finder
 pip install -e ".[dev]"
 ```
-
-> **Note**: This package is PyPI-ready but not yet published. Once published, you'll be able to `pip install fk-path-finder`.
 
 ---
 
