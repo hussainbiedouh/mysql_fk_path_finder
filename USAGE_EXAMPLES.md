@@ -541,7 +541,7 @@ jobs:
       - uses: actions/checkout@v3
       - name: Check critical paths
         run: |
-          pip install fk-path-finder
+          pip install git+https://github.com/hussainbiedouh/mysql_fk_path_finder.git
           ./scripts/validate_schema.sh
 ```
 
